@@ -52,10 +52,7 @@ namespace Debate.Scenes
         /// </summary>
         /// <param name="name">Key value to search for</param>
         /// <returns></returns>
-        public bool HasScene(string name)
-        {
-            return _scenes.ContainsKey(name);
-        }
+        public bool HasScene(string name) => _scenes.ContainsKey(name);
 
         /// <summary>
         /// Load a scene with the given key. If the scene does not exist,

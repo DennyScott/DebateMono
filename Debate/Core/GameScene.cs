@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 
 namespace Debate.Core
@@ -42,13 +43,9 @@ namespace Debate.Core
         public override void Update(GameTime gameTime)
         {
             // Update the child GameComponents
-            foreach (var component in Components)
-            {
-                if (component.Enabled)
-                {
-                    component.Update(gameTime);
-                }
-            }
+            foreach (var component in Components.Where(component => component.Enabled))
+                component.Update(gameTime);
+
 
             base.Update(gameTime);
         }
@@ -59,14 +56,12 @@ namespace Debate.Core
         public override void Draw(GameTime gameTime)
         {
             // Draw the child GameComponents (if drawable)
-            for (int i = 0; i < Components.Count; i++)
+            foreach (var gc in Components)
             {
-                GameComponent gc = Components[i];
-                if ((gc is DrawableGameComponent) &&
-                    ((DrawableGameComponent)gc).Visible)
-                {
-                    ((DrawableGameComponent)gc).Draw(gameTime);
-                }
+                var component = gc as DrawableGameComponent;
+
+                if ((component != null) && component.Visible)
+                    component.Draw(gameTime);
             }
             base.Draw(gameTime);
         }
