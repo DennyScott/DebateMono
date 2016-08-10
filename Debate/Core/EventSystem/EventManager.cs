@@ -13,7 +13,6 @@ namespace Debate.Core.EventSystem
         #endregion
 
         #region Private Variables
-        private readonly GameTime _gameTime;
         private readonly Queue _eventQueue = new Queue();
 
         //Full list of listeners, waiting to be actioned by event queue. This stores the delegates as actioned calls
@@ -32,11 +31,6 @@ namespace Debate.Core.EventSystem
         private delegate void EventDelegate(GameEvent e);
 
         #endregion
-
-        public EventManager(GameTime time)
-        {
-            _gameTime = time;
-        }
 
         #region Public Methods
 
@@ -186,7 +180,7 @@ namespace Debate.Core.EventSystem
         /// a maximum processing time per update can be set after which the vents will have to be processed
         /// next update loop.
         /// </summary>
-        public void ProcessEvents()
+        public void ProcessEvents(GameTime gameTime)
         {
             var timer = 0.0f;
             // Iterate through each event in the queue...
@@ -202,7 +196,7 @@ namespace Debate.Core.EventSystem
 
                 //...and add time to our timer.
                 if (LimitQueueProcessing)
-                    timer += (float)_gameTime.ElapsedGameTime.TotalSeconds;
+                    timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
         }
 

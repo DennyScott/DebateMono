@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Debate.Core.EventSystem;
 using Debate.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Debate
 {
@@ -11,8 +10,10 @@ namespace Debate
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager _graphics;
+        private SpriteBatch _spriteBatch;
+        private EventManager _eventManager;
+        
         private Texture2D titleBackground, title;
         private Vector2 _titleLocation;
 
@@ -20,7 +21,7 @@ namespace Debate
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
 
@@ -34,6 +35,7 @@ namespace Debate
         {
             // TODO: Add your initialization logic here
             _sceneManager = new SceneManager(Components);
+            _eventManager = new EventManager();
             base.Initialize();
         }
 
@@ -44,10 +46,11 @@ namespace Debate
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
             titleBackground = this.Content.Load<Texture2D>("title-background");
             title = this.Content.Load<Texture2D>("title");
-            Services.AddService(typeof(SpriteBatch), spriteBatch);
+            Services.AddService(typeof(SpriteBatch), _spriteBatch);
+            Services.AddService(typeof(EventManager), _eventManager);
 
             _sceneManager.AddScene(DebateScenes.MainMenu, new MainMenuScene(this, titleBackground, title));
             _sceneManager.LoadScene(DebateScenes.MainMenu);
@@ -73,7 +76,7 @@ namespace Debate
         {
 
             // TODO: Add your update logic here
-
+            _eventManager.ProcessEvents(gameTime);
             base.Update(gameTime);
         }
 
@@ -84,10 +87,10 @@ namespace Debate
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-           spriteBatch.Begin(); 
+           _spriteBatch.Begin(); 
             // TODO: Add your drawing code here
             base.Draw(gameTime);
-            spriteBatch.End();
+            _spriteBatch.End();
         }
     }
 }

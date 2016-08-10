@@ -20,7 +20,7 @@ namespace Debate.Test.Core.EventSystem
             [SetUp]
             public void Init()
             {
-                _manager = new EventManager(new GameTime());
+                _manager = new EventManager();
             }
 
             [Test]
@@ -135,7 +135,7 @@ namespace Debate.Test.Core.EventSystem
             public void DoesQueueEventTriggerEventOnUpdate()
             {
                 _manager.QueueEvent(new GameEvent());
-                _manager.ProcessEvents();
+                _manager.ProcessEvents(new GameTime());
             }
 
             [Test]
@@ -146,7 +146,7 @@ namespace Debate.Test.Core.EventSystem
                 _manager.QueueEvent(new GameEvent());
 
                 //Act
-                _manager.ProcessEvents();
+                _manager.ProcessEvents(new GameTime());
 
                 //Assert
                 Assert.AreEqual(0, _manager.QueueSize());
@@ -160,7 +160,7 @@ namespace Debate.Test.Core.EventSystem
                 _manager.QueueEvent(new GameEvent());
 
                 //Act
-                _manager.ProcessEvents();
+                _manager.ProcessEvents(new GameTime());
                 _manager.AddListenerOnce<GameEvent>(OnCall);
 
                 //Assert
@@ -176,7 +176,7 @@ namespace Debate.Test.Core.EventSystem
 
                 //Act
                 _manager.AddListenerOnce<GameEvent>(OnCall);
-                _manager.ProcessEvents();
+                _manager.ProcessEvents(new GameTime());
 
                 //Assert
                 Assert.IsFalse(_manager.HasListener<GameEvent>(OnCall));
