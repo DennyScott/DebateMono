@@ -16,6 +16,8 @@ namespace Debate
         private Texture2D titleBackground, title;
         private Vector2 _titleLocation;
 
+        private SceneManager _sceneManager;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -31,7 +33,7 @@ namespace Debate
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            _sceneManager = new SceneManager(Components);
             base.Initialize();
         }
 
@@ -47,9 +49,8 @@ namespace Debate
             title = this.Content.Load<Texture2D>("title");
             Services.AddService(typeof(SpriteBatch), spriteBatch);
 
-            var startScene = new MainMenuScene(this, titleBackground, title);
-            Components.Add(startScene);
-            startScene.Show();
+            _sceneManager.AddScene("mainmenu", new MainMenuScene(this, titleBackground, title));
+            _sceneManager.LoadScene("mainmenu");
 
             // TODO: use this.Content to load your game content here
         }
