@@ -53,6 +53,8 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Core\EventSystem\EventManager.cs" />
+    <Compile Include="Core\EventSystem\GameEvent.cs" />
     <Compile Include="Core\GameScene.cs" />
     <Compile Include="Core\ImageComponent.cs" />
     <Compile Include="Game1.cs" />
