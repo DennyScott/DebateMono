@@ -1,4 +1,5 @@
 ﻿using System;
+using Debate.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -12,7 +13,8 @@ namespace Debate
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private Texture2D myImage;
+        private Texture2D titleBackground, title;
+        private Vector2 _titleLocation;
 
         public Game1()
         {
@@ -41,7 +43,13 @@ namespace Debate
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            myImage = this.Content.Load<Texture2D>("RuntimeDebugging");
+            titleBackground = this.Content.Load<Texture2D>("title-background");
+            title = this.Content.Load<Texture2D>("title");
+            Services.AddService(typeof(SpriteBatch), spriteBatch);
+
+            var startScene = new MainMenuScene(this, titleBackground, title);
+            Components.Add(startScene);
+            startScene.Show();
 
             // TODO: use this.Content to load your game content here
         }
@@ -77,12 +85,10 @@ namespace Debate
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            
+           spriteBatch.Begin(); 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
-            spriteBatch.Draw(myImage, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f); ;
-            spriteBatch.End();
             base.Draw(gameTime);
+            spriteBatch.End();
         }
     }
 }
