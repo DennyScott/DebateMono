@@ -6,7 +6,7 @@ namespace Debate.Scenes
 {
     public class SceneManager : ISceneManager
     {
-        private readonly Dictionary<string, GameScene> _scenes;
+        private readonly Dictionary<DebateScenes, GameScene> _scenes;
         private readonly GameComponentCollection _component;
         
         /// <summary>
@@ -15,7 +15,7 @@ namespace Debate.Scenes
         /// <param name="component"></param>
         public SceneManager(GameComponentCollection component)
         {
-            _scenes = new Dictionary<string, GameScene>();
+            _scenes = new Dictionary<DebateScenes, GameScene>();
             _component = component;
         }
 
@@ -30,7 +30,7 @@ namespace Debate.Scenes
         /// </summary>
         /// <param name="name">Key to find the scene under</param>
         /// <param name="scene">Stored Game Scene</param>
-        public void AddScene(string name, GameScene scene)
+        public void AddScene(DebateScenes name, GameScene scene)
         {
             _scenes.Add(name, scene);
             _component.Add(scene);
@@ -41,7 +41,7 @@ namespace Debate.Scenes
         /// key.
         /// </summary>
         /// <param name="name">Key to find the scene</param>
-        public void RemoveScene(string name)
+        public void RemoveScene(DebateScenes name)
         {
             _scenes.Remove(name);
             _component.Remove(_scenes[name]);
@@ -52,7 +52,7 @@ namespace Debate.Scenes
         /// </summary>
         /// <param name="name">Key value to search for</param>
         /// <returns></returns>
-        public bool HasScene(string name) => _scenes.ContainsKey(name);
+        public bool HasScene(DebateScenes name) => _scenes.ContainsKey(name);
 
         /// <summary>
         /// Load a scene with the given key. If the scene does not exist,
@@ -60,7 +60,7 @@ namespace Debate.Scenes
         /// scene, and show the new scene.
         /// </summary>
         /// <param name="name">Key to load the scene</param>
-        public void LoadScene(string name)
+        public void LoadScene(DebateScenes name)
         {
             if (!HasScene(name)) return;
 

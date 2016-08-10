@@ -4,11 +4,11 @@ namespace Debate.Scenes
 {
     public interface ISceneManager
     {
-        void AddScene(string name, GameScene scene);
-        void RemoveScene(string name);
+        void AddScene(DebateScenes name, GameScene scene);
+        void RemoveScene(DebateScenes name);
 
-        bool HasScene(string name);
+        bool HasScene(DebateScenes name);
         GameScene CurrentScene { get; }
-        void LoadScene(string name);
+        void LoadScene(DebateScenes name);
     }
 }

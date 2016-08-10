@@ -49,8 +49,8 @@ namespace Debate
             title = this.Content.Load<Texture2D>("title");
             Services.AddService(typeof(SpriteBatch), spriteBatch);
 
-            _sceneManager.AddScene("mainmenu", new MainMenuScene(this, titleBackground, title));
-            _sceneManager.LoadScene("mainmenu");
+            _sceneManager.AddScene(DebateScenes.MainMenu, new MainMenuScene(this, titleBackground, title));
+            _sceneManager.LoadScene(DebateScenes.MainMenu);
 
             // TODO: use this.Content to load your game content here
         }
