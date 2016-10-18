@@ -1,6 +1,8 @@
-﻿using Debate.Core.EventSystem;
+﻿using System.Runtime.CompilerServices;
+using Debate.Core.EventSystem;
 using Debate.Scenes;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Debate
@@ -47,12 +49,11 @@ namespace Debate
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            titleBackground = this.Content.Load<Texture2D>("title-background");
-            title = this.Content.Load<Texture2D>("title");
+
             Services.AddService(typeof(SpriteBatch), _spriteBatch);
             Services.AddService(typeof(EventManager), _eventManager);
 
-            _sceneManager.AddScene(DebateScenes.MainMenu, new MainMenuScene(this, titleBackground, title));
+            _sceneManager.AddScene(DebateScenes.MainMenu, new MainMenuScene(this));
             _sceneManager.LoadScene(DebateScenes.MainMenu);
 
             // TODO: use this.Content to load your game content here

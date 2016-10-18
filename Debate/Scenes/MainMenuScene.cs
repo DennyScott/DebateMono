@@ -1,6 +1,7 @@
 ﻿using Debate.Core;
 using Debate.Core.EventSystem;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Debate.Scenes
@@ -9,11 +10,21 @@ namespace Debate.Scenes
     {
         protected ImageComponent titleBackground, title;
         protected SpriteBatch spriteBatch = null;
+        private Game _game;
 
-        public MainMenuScene(Game game, Texture2D titleBackground, Texture2D title) : base(game)
+        public MainMenuScene(Game game) : base(game)
         {
-            this.titleBackground = new ImageComponent(game, titleBackground, ImageComponent.DrawMode.Stretch);
-            this.title = new ImageComponent(game, title, ImageComponent.DrawMode.Center);
+            _game = game;
+        }
+
+        protected override void LoadContent()
+        {
+            base.LoadContent();
+            var titleBackgroundTexture = Game.Content.Load<Texture2D>("title-background");
+            var titleTexture = Game.Content.Load<Texture2D>("title");
+
+            this.titleBackground = new ImageComponent(_game, titleBackgroundTexture, ImageComponent.DrawMode.Stretch);
+            this.title = new ImageComponent(_game, titleTexture, ImageComponent.DrawMode.Center);
 
             Components.Add(this.titleBackground);
             Components.Add(this.title);
